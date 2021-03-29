@@ -33,11 +33,13 @@ function get_contact() {
 function get_attachment( $postID, $size = 'full' ) {
 	$postID = ( $postID ) ?: get_the_ID();
 	$attachment = wp_get_attachment_image_src( $postID, $size );
+	$imgAlt = get_post_meta($postID, '_wp_attachment_image_alt', TRUE);
 	$obj = array(
 				"src" => $attachment[0],
 				"srcset" => wp_get_attachment_image_srcset( $postID, $size ),
 				"width" => $attachment[1],
-				"height" => $attachment[2]
+				"height" => $attachment[2],
+				"alt" => $imgAlt,
 			);
 	return $obj;
 }
