@@ -17,8 +17,8 @@ function wua_add_mce_button() {
 
 	// check if WYSIWYG is enabled
 	if ( 'true' == get_user_option( 'rich_editing' ) ) {
-		add_filter( 'mce_external_plugins', 'wua_add_tinymce_script' );
-		add_filter( 'mce_buttons', 'wua_register_mce_button' );
+		//add_filter( 'mce_external_plugins', 'wua_add_tinymce_script' );
+		//add_filter( 'mce_buttons', 'wua_register_mce_button' );
 	}
 }
 add_action( 'admin_head', 'wua_add_mce_button' );
