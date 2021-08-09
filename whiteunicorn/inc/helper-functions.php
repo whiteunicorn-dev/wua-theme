@@ -108,20 +108,95 @@ function render_json( $obj ) {
 
 
 /**
-* Render phone number
+* Get embed url for youtube/vimeo links
 *
-* @param {string} phone number as it appears in href (123-456-7890)
-* @return {string} visually friendly phone number 1234567890
+* @param {string} video url
+* @return {string} returns embed url
 */
-function render_phone_number( $phoneNumber ) {
-	if ( strlen( $phoneNumber ) < 10 ) { echo $phoneNumber; return; }
-	$number = preg_replace( "/[^0-9]/", "", $phoneNumber );
-	$number = substr_replace( $number, '.', 6, 0 );//123456.7890
-	$number = substr_replace( $number, ' ', 3, 0 );//123 456.7890
-	$number = substr_replace( $number, ')', 3, 0 );//123) 456.7890
-	$number = substr_replace( $number, '(', 0, 0 );//(123) 456.7890
-	echo $number;
-	return;
+function getVideoEmbedUrl( $url ) {
+	$embed = false;
+	$oembedType = getOembedType( $url );
+	if ( $oembedType === "youtube" ) {
+		$videoID = getYouTubeID( $video );
+		if ( $videoID ) { $embed = "http://youtube.com/embed/$videoID"; }
+	}
+	elseif ( $oembedType === "vimeo" ) {
+		$videoID = getVimeoID( $video );
+		if ( $videoID ) { $embed = "http://player.vimeo.com/video/$videoID"; }
+	}
+
+	return $embed;
+}
+
+
+/**
+* Get oEmbed type from url
+*
+* @param {string} video url
+* @return {string} returns youtube,vimeo or false
+*/
+function getOembedType( $url ) {
+	$oembedType = false;
+	if ( preg_match('%youtube|youtu\.be%i', $url) ) {
+		$oembedType = "youtube";
+	}
+	elseif ( preg_match('%vimeo%i', $url) ) {
+		$oembedType = "vimeo";
+	}
+
+	return $oembedType;
+}
+
+
+/**
+ * Get Video ID for Vimeo oEmbed
+ * 
+ * @param {string} video url
+ * @return {string || boolen} returns video id or false
+ */
+function getVimeoID( $url ) {
+    if ( preg_match( '#(?:https?://)?(?:www.)?(?:player.)?vimeo.com/(?:[a-z]*/)*([0-9]{6,11})[?]?.*#', $url, $m ) ) {
+        return $m[1];
+    }
+    return false;
+}
+ 
+
+/**
+ * Get Video Thumbnail for Vimeo oEmbed
+ * 
+ * @param {string} video id
+ * @return {string} returns thumbnail source
+ */
+function getVimeoThumb( $id ) {
+    $arr_vimeo = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/$id.php" ) );
+    //return $arr_vimeo[0]['thumbnail_small']; // returns small thumbnail
+    // return $arr_vimeo[0]['thumbnail_medium']; // returns medium thumbnail
+    return $arr_vimeo[0]['thumbnail_large']; // returns large thumbnail
+}
+
+
+/**
+* Get Video ID for YouTube oEmbed
+* 
+* @param {string} video url
+* @return {string} returns video id
+*/
+function getYouTubeID( $url ) {
+    $regExp = "/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/";
+    preg_match( $regExp, $url, $video );
+    return $video[7];
+}
+ 
+
+/**
+* Get Video Thumbnail for YouTube oEmbed
+* 
+* @param {string} video id
+* @return {string} returns thumbnail source
+*/
+function getYouTubeThumb( $video_id ) {
+    return "//i3.ytimg.com/vi/$video_id/hqdefault.jpg";
 }
 
 
