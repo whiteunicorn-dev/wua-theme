@@ -7,20 +7,26 @@
 
 
 /**
- * Get contact object
- * @return {obj} $obj->contact, $obj->location, $obj->hours
+ * Get the path to a versioned bundle relative to the theme directory.
+ *
+ * @param {string} $path
+ * @return {string}
  */
-function get_contact() {
-	$contact = get_field('site_contact', 'option');
-	$contactInfo = $contact['contact'];
-	$location = $contact['location'];
-	$hours = $contact['hours'];
-	$obj = array(
-				"contact" => $contactInfo,
-				"location" => $location,
-				"hours" => $hours
-			);
-	return $obj;
+function get_assets_bundle( $path ) {
+	static $manifest = null;
+
+	if ( is_null( $manifest ) ) {
+		$manifest_path = WUA_THEME_DIR . 'dist/manifest.json';
+
+		if ( file_exists( $manifest_path ) ) {
+			$manifest = json_decode( file_get_contents( $manifest_path ), true );
+		} else {
+			$manifest = array();
+		}
+	}
+
+	$path = isset( $manifest[ $path ] ) ? $manifest[ $path ] : $path;
+	return '/dist/' . $path;
 }
 
 
@@ -28,19 +34,25 @@ function get_contact() {
  * Get custom image object
  * @param {int} $postID: (default: $post->ID)
  * @param {string} $size: attachment size (default:'full')
- * @return {obj} $obj->src, $obj->srcset
+ * @param {array} $attr: (alt,title,caption,description) Optional
+ * @return {array} (src,srcset,width,height,[alt,title,caption,description])
  */
-function get_attachment( $postID, $size = 'full' ) {
+function get_attachment( $postID, $size = 'full', $attr = false ) {
 	$postID = ( $postID ) ?: get_the_ID();
-	$attachment = wp_get_attachment_image_src( $postID, $size );
-	$imgAlt = get_post_meta($postID, '_wp_attachment_image_alt', TRUE);
+	$src = wp_get_attachment_image_src( $postID, $size );
 	$obj = array(
-				"src" => $attachment[0],
+				"src" => $src[0],
 				"srcset" => wp_get_attachment_image_srcset( $postID, $size ),
-				"width" => $attachment[1],
-				"height" => $attachment[2],
-				"alt" => $imgAlt,
+				"width" => $src[1],
+				"height" => $src[2]
 			);
+	if ( $attr != false ) { 
+		$attachment = get_post( $postID );
+		if ( isset( $attr['alt'] ) ) { $obj['alt'] = get_post_meta($postID, '_wp_attachment_image_alt', TRUE); }
+		if ( isset( $attr['title'] ) ) { $obj['title'] = $attachment->post_title; }
+		if ( isset( $attr['caption'] ) ) { $obj['caption'] = $attachment->post_excerpt; }
+		if ( isset( $attr['description'] ) ) { $obj['description'] = $attachment->post_content; }
+	}
 	return $obj;
 }
 
@@ -117,11 +129,11 @@ function getVideoEmbedUrl( $url ) {
 	$embed = false;
 	$oembedType = getOembedType( $url );
 	if ( $oembedType === "youtube" ) {
-		$videoID = getYouTubeID( $video );
+		$videoID = getYouTubeID( $url );
 		if ( $videoID ) { $embed = "http://youtube.com/embed/$videoID"; }
 	}
 	elseif ( $oembedType === "vimeo" ) {
-		$videoID = getVimeoID( $video );
+		$videoID = getVimeoID( $url );
 		if ( $videoID ) { $embed = "http://player.vimeo.com/video/$videoID"; }
 	}
 
@@ -262,6 +274,24 @@ function load_inline_svg_filename( $filename ) {
     }
     // Return a blank string if we can't find the file.
     return '';
+}
+
+
+/**
+ * Get contact object
+ * @return {obj} $obj->contact, $obj->location, $obj->hours
+ */
+function get_contact() {
+	$contact = get_field('site_contact', 'option');
+	$contactInfo = $contact['contact'];
+	$location = $contact['location'];
+	$hours = $contact['hours'];
+	$obj = array(
+				"contact" => $contactInfo,
+				"location" => $location,
+				"hours" => $hours
+			);
+	return $obj;
 }
 
 

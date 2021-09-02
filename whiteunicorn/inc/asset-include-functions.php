@@ -6,6 +6,9 @@
  * @package WhiteUnicorn
  */
 
+define ( 'WUA_CSS_DIR', WUA_RESOURCES_DIR . 'assets/css' . DIRECTORY_SEPARATOR );
+define ( 'WUA_JS_DIR', WUA_RESOURCES_DIR . 'assets/js' . DIRECTORY_SEPARATOR );
+
 /**
  * Include Browser JS
  */

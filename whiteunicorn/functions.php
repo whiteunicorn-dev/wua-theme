@@ -9,8 +9,7 @@
 
 define ( 'WUA_THEME_DIR', dirname( __FILE__ ) . DIRECTORY_SEPARATOR );
 define ( 'WUA_INC_DIR', WUA_THEME_DIR . 'inc' . DIRECTORY_SEPARATOR );
-define ( 'WUA_CSS_DIR', WUA_INC_DIR . 'assets/css' . DIRECTORY_SEPARATOR );
-define ( 'WUA_JS_DIR', WUA_INC_DIR . 'assets/js' . DIRECTORY_SEPARATOR );
+define ( 'WUA_RESOURCES_DIR', WUA_THEME_DIR . 'resources' . DIRECTORY_SEPARATOR );
 
 
 /**
@@ -20,8 +19,7 @@ function head_hook() {
 $custom_code_hooks = get_field('theme_hooks', 'option');
 ?>
 
-	<!-- Custom Code Header Hook -->
-	<?php if ($custom_code_hooks['header_hook']) : echo $custom_code_hooks['header_hook']; endif; ?>
+	<?php if ($custom_code_hooks['header_hook']) : echo '<!-- Custom Code Header Hook -->' . $custom_code_hooks['header_hook']; endif; ?>
 
 <?php
 }
@@ -38,21 +36,20 @@ $custom_code_hooks = get_field('theme_hooks', 'option');
 $page_custom_styles = get_field('page_css');//Custom CSS on each page
 $page_custom_js = get_field('page_javascript');//Custom JS on each page
 ?>
-	<!-- Custom Code Footer Hook -->
-	<?php if ($custom_code_hooks['footer_hook']) : echo $custom_code_hooks['footer_hook']; endif; ?>
+	
+	<?php if ($custom_code_hooks['footer_hook']) : echo '<!-- Custom Code Footer Hook -->' . $custom_code_hooks['footer_hook']; endif; ?>
 
-	<!-- Page Styles -->
 	<?php if ($page_custom_styles) : ?>
+		<!-- Page Styles -->
 		<style type="text/css"><?php echo $page_custom_styles; ?></style>
 	<?php endif; ?>
 
-	<!-- Page JS -->
 	<?php if ($page_custom_js) : ?>
+		<!-- Page JS -->
 		<script type="text/javascript"><?php echo $page_custom_js; ?></script>
 	<?php endif; ?>
 
-	<!-- Google Analytics -->
-	<?php if ($google_analytics) : echo $google_analytics; endif; ?>
+	<?php if ($google_analytics) : echo '<!-- Google Analytics -->' . $google_analytics; endif; ?>
 
 <?php	
 }
@@ -64,28 +61,47 @@ add_action('wp_footer','footer_script');
  */
 if ( ! function_exists( 'wua_theme_setup' ) ) {
 	function wua_theme_setup() {
-		
+
 		# Theme assets (head)
 		add_action('wp_head', function() {
-			require_once( WUA_CSS_DIR . 'theme-styles.php' );
+			echo '<style type="text/css" id="theme-styles">';
+			require_once( WUA_THEME_DIR . 'style.css' );
+			echo '</style>';
 		}, 7);
 
 
 		# Theme assets (footer)
 		add_action('wp_footer', function() {
-			//require_once( WUA_JS_DIR . 'ScrollMagic.php' );
+			
 		}, 0);
 
 
 		# Enqueue Stylesheets ($handle, $src, $dependencies, $version, $media)
 		add_action( 'wp_enqueue_scripts', function() {
-			//wp_enqueue_style( 'helpers', get_template_directory_uri() . '/inc/assets/css/helpers.min.css', array(), '082520' );
+			$file = 'css/bundle.css';
+			$path =  get_assets_bundle( $file );
+			$ver = ( $path === "/dist/$file" ) ? date( "His", filemtime( get_stylesheet_directory() . $path ) ) : null;
+			wp_enqueue_style(
+				'theme-css-bundle',
+				get_template_directory_uri() . $path,
+				false,
+				$ver //if running "npm run dev" will show version number using timestamp, else null
+			);
 		});
 
 
 		# Enqueue Scripts ($handle, $src, $dependencies, $version, $in_footer)
 		add_action( 'wp_enqueue_scripts', function() {
-			//wp_enqueue_script( 'wua-theme-vendors', get_template_directory_uri() . '/js/vendors.js', array(), '113620', true );
+			$file = 'js/bundle.js';
+			$path =  get_assets_bundle( $file );
+			$ver = ( $path === "/dist/$file" ) ? date( "His", filemtime( get_stylesheet_directory() . $path ) ) : null;
+			wp_enqueue_script(
+				'theme-js-bundle',
+				get_template_directory_uri() . $path,
+				array( 'jquery' ),
+				$ver, //if running "npm run dev" will show version number using timestamp, else null
+				true
+			);
 		});
 
 

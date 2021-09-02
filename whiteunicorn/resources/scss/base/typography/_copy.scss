@@ -1,0 +1,52 @@
+p,a,ul,ol,em,i,button,input,textarea,span,div,section,header,footer {
+    font-size: inherit;
+    font-family: inherit;
+}
+p {
+    line-height: 2;
+    font-family: $font-pri;
+}
+a {
+    font-size: 18px;
+    color: $color-pri;
+    text-decoration: none;
+    outline: 0;
+}
+
+dfn,
+cite,
+em,
+i {
+	font-style: italic;
+}
+
+blockquote {
+	
+}
+
+address {
+	
+}
+
+pre {
+	background: black;
+	color: white;
+}
+
+code,
+kbd,
+tt,
+var {
+	
+}
+
+abbr,
+acronym {
+}
+
+mark,
+ins {
+}
+
+big {
+}
