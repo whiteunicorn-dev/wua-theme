@@ -47,7 +47,7 @@ function wua_change_login_styles() {
 		#loginform { background-color: #fff; border-radius: 0; box-shadow: 0 2px 20px 4px rgba(0,0,0,.15); }
 		#loginform label { color: <?php echo $main_color; ?>; font-size: 18px;  }
 		/*Submit Button*/
-		#loginform #wp-submit { background-color: <?php echo $main_color; ?>; color: <?php echo $alt_color; ?>; border: 2px solid #1a1a1a; box-shadow: none; text-shadow: none; border-radius: 0; vertical-align: middle; text-transform: uppercase; font-family: Gotham-Condensed-Bold, sans-serif; letter-spacing: 4px; font-weight: 400!important; transition: all .4s;  }
+		#loginform #wp-submit { background-color: <?php echo $main_color; ?>; color: white; border: 2px solid <?php echo $alt_color; ?>; box-shadow: none; text-shadow: none; border-radius: 0; vertical-align: middle; text-transform: uppercase; font-family: Gotham-Condensed-Bold, sans-serif; letter-spacing: 4px; font-weight: 400!important; transition: all .4s;  }
 		#loginform #wp-submit:hover { background-color:<?php echo $alt_color; ?>; border: 2px solid <?php echo $main_color; ?>; color: <?php echo $main_color; ?>; }
 		/*Lost Password*/
 		.login #nav a,
