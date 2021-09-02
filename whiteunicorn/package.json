@@ -16,7 +16,7 @@
         "gulp": "^4.0.2",
         "magnific-popup": "^1.1.0",
         "select2": "^4.1.0-rc.0",
-        "swiper": "5.4.5"
+        "swiper": "6.8.4"
     },
     "devDependencies": {
         "@babel/core": "^7.1.0",

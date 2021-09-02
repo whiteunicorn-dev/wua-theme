@@ -83,7 +83,7 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: [babelLoader]
-			}
+			},
 		],
 		noParse: ['raty-js'].map(module => new RegExp(escapeRegEx(module)))
 	},

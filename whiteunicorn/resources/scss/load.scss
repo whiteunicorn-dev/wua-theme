@@ -1,7 +1,8 @@
 /*--------------------------------------------------------------
-# Libraries (vendor styles)
+# Vendors (3rd party)
 --------------------------------------------------------------*/
-//@import '~magnific-popup/dist/magnific-popup.css';
+@import "vendors/magnific-popup.scss";
+@import '~swiper/swiper.min.css';
 
 
 /*--------------------------------------------------------------
