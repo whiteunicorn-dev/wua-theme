@@ -233,14 +233,17 @@ module.exports = () => {
 		require('postcss-url')([
 			{
 				filter: /\.(woff2?)$/,
-				url: (asset, dir) =>
+				url: (asset, dir) => {
+					if (asset.url.includes("wp-content")) { return asset.url; }
 					copyAsset(asset, dir, utils.srcFontsPath(), utils.buildFontsPath())
+				}
 			},
-
 			{
 				filter: /\.(jpe?g|png|gif|svg)$/,
-				url: (asset, dir) =>
+				url: (asset, dir) => {
+					if (asset.url.includes("wp-content")) { return asset.url; }
 					copyAsset(asset, dir, utils.srcImagesPath(), utils.buildImagesPath())
+				}
 			}
 		])
 	);

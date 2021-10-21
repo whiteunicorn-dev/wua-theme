@@ -258,6 +258,23 @@ function load_inline_svg( $attachmentID ) {
 
 
 /**
+ * Get substring between two strings(or characters)
+ * @param {string} $string string to parse
+ * @param {string} $start begining string
+ * @param {string} $end ending string
+ * @return {string} string in-between the start and end strings
+ */
+function getSubstring($string, $start, $end) {
+    $string = ' ' . $string;
+    $ini = strpos($string, $start);
+    if ($ini == 0) return '';
+    $ini += strlen($start);
+    $len = strpos($string, $end, $ini) - $ini;
+    return substr($string, $ini, $len);
+}//getSubstring("{{CONTENT TO EXTRACT}}, "{{", "}}");
+
+
+/**
 * Load an inline SVG with filename
 *
 * @param {string} $filename The filename of the SVG you want to load.

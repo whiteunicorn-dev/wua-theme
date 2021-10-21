@@ -28,7 +28,7 @@ add_action( 'admin_head', 'wua_add_mce_button' );
  * Register buttons
  */
 function wua_register_mce_button( $buttons ) {
-	array_push( $buttons, 'cols', 'col-1of2', 'col-1of3' );
+	array_push( $buttons, 'wp-img', 'cols', 'col-1of2', 'col-1of3' );
 	
 	return $buttons;
 }
@@ -38,6 +38,7 @@ function wua_register_mce_button( $buttons ) {
  * Add JS files for buttons
  */
 function wua_add_tinymce_script( $plugin_array ) {
+	$plugin_array['wp-img'] = get_stylesheet_directory_uri() .'/js/tinymce/wp-image.js';
 	$plugin_array['cols'] = get_stylesheet_directory_uri() .'/js/tinymce/cols.js';
 	$plugin_array['col-1of2'] = get_stylesheet_directory_uri() .'/js/tinymce/col-1of2.js';
 	$plugin_array['col-1of3'] = get_stylesheet_directory_uri() .'/js/tinymce/col-1of3.js';
