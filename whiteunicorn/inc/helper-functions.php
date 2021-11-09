@@ -130,11 +130,11 @@ function getVideoEmbedUrl( $url ) {
 	$oembedType = getOembedType( $url );
 	if ( $oembedType === "youtube" ) {
 		$videoID = getYouTubeID( $url );
-		if ( $videoID ) { $embed = "http://youtube.com/embed/$videoID"; }
+		if ( $videoID ) { $embed = "//youtube.com/embed/$videoID"; }
 	}
 	elseif ( $oembedType === "vimeo" ) {
 		$videoID = getVimeoID( $url );
-		if ( $videoID ) { $embed = "http://player.vimeo.com/video/$videoID"; }
+		if ( $videoID ) { $embed = "//player.vimeo.com/video/$videoID"; }
 	}
 
 	return $embed;
@@ -235,6 +235,18 @@ function sanitize_phone_number( $phoneNumber ) {
 */
 function split_newline( $string ) {
 	return preg_split("/\r\n|\n|\r/", $string );
+}
+
+
+/**
+* Get Trimmed String Excerpt
+* @param {string} string to trim
+* @param {int} max character length (default: 100)
+* @param {string} text to add at end of trimmed string (default: '...')
+* @return {string} if string is longer than length limit will return trimmed string with ellipse
+*/
+function trim_string_length( $string = '', $length = 100, $ellipse = ' ...' ) {
+   return ( strlen( $string ) > $length ) ? substr( $string, 0, $length ) . $ellipse : $string;
 }
 
 
