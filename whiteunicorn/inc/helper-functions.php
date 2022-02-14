@@ -102,8 +102,8 @@ function wp_img_cvr( $imgID, $size = 'full' ) {
 * @param {int} post ID for the featured image
 * @return {obj} custom attachment object (src,srcset,w,h)
 */
-function get_featured_img( $postID ) {
-	return get_attachment( get_post_thumbnail_id( $postID ) );
+function get_featured_img( $postID, $size = 'full' ) {
+	return get_attachment( get_post_thumbnail_id( $postID ), $size );
 }
 
 
@@ -290,19 +290,65 @@ function getSubstring($string, $start, $end) {
 * Load an inline SVG with filename
 *
 * @param {string} $filename The filename of the SVG you want to load.
+* @param {string} $svg_path The path to the folder that has the SVG you want to load. (Default: /dist/images/)
 * @return {string} The content of the SVG you want to load.
 */
-function load_inline_svg_filename( $filename ) {
-    // Add the path to your SVG directory inside your theme.
-    $svg_path = '/resources/images/';
- 
+function load_inline_svg_filename( $filename, $svg_path = '/dist/images/' ) {
     // Check the SVG file exists
     if ( file_exists( get_stylesheet_directory() . $svg_path . $filename ) ) {
         // Load and return the contents of the file
-        return file_get_contents( get_stylesheet_directory_uri() . $svg_path . $filename );
+        return file_get_contents( get_stylesheet_directory() . $svg_path . $filename );
     }
     // Return a blank string if we can't find the file.
     return '';
+}
+
+
+/**
+ * Get Previous Post ID
+ * @return {int} post ID
+ * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
+ */
+function get_prev_post_ID() {
+	global $post;
+	$prevPost = ( get_next_post() )?: get_last_post();
+	$prevPostID = $prevPost->ID;
+
+	return $prevPostID;
+}
+
+
+/**
+ * Get Next Post ID
+ * @return {int} post ID
+ * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
+ */
+function get_next_post_ID() {
+	global $post;
+	$nextPost = ( get_previous_post() ) ?: get_latest_post();
+	$nextPostID = $nextPost->ID;
+
+	return $nextPostID;
+}
+
+
+/**
+ * Get Latest Post
+ * @return {obj} post
+ * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
+ */
+function get_latest_post( $postType = 'post' ) {
+	return get_posts("post_type=${postType}&numberposts=1&orderby=menu_order&order=ASC")[0];
+}
+
+
+/**
+ * Get Last Post
+ * @return {obj} post
+ * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
+ */
+function get_last_post( $postType = 'post' ) {
+	return get_posts("post_type=${postType}&numberposts=1&orderby=menu_order&order=DESC")[0];	
 }
 
 

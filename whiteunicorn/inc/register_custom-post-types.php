@@ -33,7 +33,6 @@ function register_team_members_cpt() {
 		'publicly_queryable' => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
-		'menu_position'		 => 1,
 		'menu_icon'			 => 'dashicons-admin-users',
 		'query_var'          => true,
 		'rewrite'            => array( 'slug' => 'team' ),

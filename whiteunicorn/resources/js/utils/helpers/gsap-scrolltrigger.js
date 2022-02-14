@@ -148,7 +148,7 @@ export default function setScrollTrigger() {//log("scrollTrigger->this",this);
     }
     function addSplitText() {
       var _settings = eval(`(${settings.splittext})`),
-          _$this = $this.find(_settings.target);
+          _$this = (_settings.target === "this" || _settings.target === "$this") ? $this : $this.find(_settings.target);
       if (_settings == "") { return; }//log("text animation: ", settings);
       //Split text
       _settings.type = (_settings.type) ? _settings.type : "words";

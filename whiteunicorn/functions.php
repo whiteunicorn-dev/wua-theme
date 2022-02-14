@@ -102,6 +102,8 @@ if ( ! function_exists( 'wua_theme_setup' ) ) {
 				$ver, //if running "npm run dev" will show version number using timestamp, else null
 				true
 			);
+			//Pass the wp admin ajax url as global variable to theme-js-bundle (in case ajax is needed in the script)
+			wp_localize_script( 'theme-js-bundle', 'wua_localized', array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ), ));
 		});
 
 
