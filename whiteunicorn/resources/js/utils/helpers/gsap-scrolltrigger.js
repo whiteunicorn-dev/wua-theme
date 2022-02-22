@@ -2,6 +2,7 @@
 import log from "./console-log";
 import lazyLoad from "./simple-lazy-load";
 import { pI, pF } from "./numbers";
+import { wrapChars, wrapWords, wrapLines } from "./gsap-splittext";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
