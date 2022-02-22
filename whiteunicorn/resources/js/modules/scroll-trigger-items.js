@@ -20,5 +20,5 @@ $("h2").each(function() {
 <div class="sm-item" data-scrolltrigger='{ "animation":"fadeIn", "duration":"2","start":"top 80%", "target":".section__col", "trigger":".section__content", "stagger":".35", "clearProps":"true", "markers": "false" }'></div>
 
 //Split Text Example
-$headings.attr("data-scrolltrigger", '{ "animation":"fadeIn.fromBottom", "duration":"1", "start":"top 80%", "markers": "true", "target":".word", "stagger":".1", "splittext":"{ type:`words`,target:`$this`, wrapWords:true }" }');
+$headings.attr("data-scrolltrigger", '{ "animation":"fadeIn.fromBottom", "duration":"1", "start":"top 80%", "markers": "true", "trigger":"$this", "target":".word", "stagger":".1", "splittext":"{ type:`words`,target:`$this`, wrapWords:true }" }');
 */

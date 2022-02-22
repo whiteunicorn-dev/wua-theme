@@ -157,10 +157,10 @@ export default function setScrollTrigger() {//log("scrollTrigger->this",this);
       _settings.wordsClass = (_settings.wordsClass) ? _settings.wordsClass : "word splitText-item";
       _settings.linesClass = (_settings.linesClass) ? _settings.linesClass : "line splitText-item";
       //Animation
-      _settings.duration = (_settings.duration) ? pI(_settings.duration) : 1;
-      _settings.start = (_settings.start) ? _settings.start : "top bottom";
-      _settings.end = (_settings.end) ? _settings.end : "bottom top";
-      _settings.toggleActions = (_settings.toggleActions) ? _settings.toggleActions : "play reset resume reset";
+      // _settings.duration = (_settings.duration) ? pI(_settings.duration) : 1;
+      // _settings.start = (_settings.start) ? _settings.start : "top bottom";
+      // _settings.end = (_settings.end) ? _settings.end : "bottom top";
+      // _settings.toggleActions = (_settings.toggleActions) ? _settings.toggleActions : "play reset resume reset";
 
       var textSplit = new SplitText(_$this, { type: _settings.type, charsClass: _settings.charsClass, wordsClass: _settings.wordsClass, linesClass: _settings.linesClass });
       //Custom wrapper elements
