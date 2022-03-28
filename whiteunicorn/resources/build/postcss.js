@@ -234,8 +234,11 @@ module.exports = () => {
 			{
 				filter: /\.(woff2?)$/,
 				url: (asset, dir) => {
+					// if coming from WP uploads folder: return asset and do not copy asset
 					if (asset.url.includes("wp-content")) { return asset.url; }
 					copyAsset(asset, dir, utils.srcFontsPath(), utils.buildFontsPath())
+					// if coming from fontawesome folder (node modules) alter url path or else the url will be incorrect
+					if (asset.url.includes("webfonts/fa")) { const url = asset.url.replace("../webfonts", "../fonts/@fortawesome/fontawesome-free/webfonts"); return url; }
 				}
 			},
 			{
