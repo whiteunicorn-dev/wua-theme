@@ -12,7 +12,7 @@
         "build": "cross-env NODE_ENV=production npm run start -- build"
     },
     "dependencies": {
-        "gsap": "file:gsap-bonus.tgz",
+        "gsap": "file:./resources/assets/gsap-bonus.tgz",
         "gulp": "^4.0.2",
         "magnific-popup": "^1.1.0",
         "select2": "^4.1.0-rc.0",
