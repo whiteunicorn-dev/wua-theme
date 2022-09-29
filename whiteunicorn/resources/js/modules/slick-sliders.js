@@ -1,20 +1,24 @@
 //import log from "../utils/helpers/console-log";
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+import 'slick-carousel';
 
-export default function slickHeroSliders() {
-    var $slider = $(".page-header-section").find(".slick-slider");
+export default function slickSliders() {
+    var $slider = $(".slick-slider");
     if (!$slider.length) { return; }
+    const speed = $slider.attr("data-speed") || 6000;
     
     $slider.slick({
         dots: false,
         arrows: false,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: pI($slider.attr("data-autoplay-speed")),
+        autoplaySpeed: parseInt(speed),
         speed: 500,
         fade: true,
         cssEase: 'linear',
-        lazyLoad: 'ondemand',
-        lazyLoadSrcAttr: 'data-lazy',
-        lazyLoadSrcsetAttr: 'data-srcset',
+        // lazyLoad: 'ondemand',
+        // lazyLoadSrcAttr: 'data-lazy',
+        // lazyLoadSrcsetAttr: 'data-srcset',
     });
 }

@@ -6,6 +6,21 @@
  */
 
 /**
+ * Render template part
+ * @param string $path
+ */
+function render_template_part( $path ) {
+	$tempate_part = 'template-parts/' . $path . '.php';
+	
+	if ( locate_template( $tempate_part ) != '' ) {
+		include( locate_template( $tempate_part, false, false ) );
+	}
+	
+	return;
+}
+
+
+/**
  * Render ACF Flexible Content Sections
  * @param obj $section
  * @param int $section_count

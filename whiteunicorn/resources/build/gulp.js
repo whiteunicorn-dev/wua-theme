@@ -217,7 +217,7 @@ const clean = () => {
  */
 gulp.task(
 	'dev',
-	gulp.series(clean, gulp.parallel(styles, images), gulp.parallel(scripts, watch, reload))
+	gulp.series(clean, gulp.parallel(styles, images), gulp.parallel(scripts, watch/*, reload*/))
 );
 
 gulp.task('build', gulp.series(clean, styles, scripts, images, optimize, manifest));

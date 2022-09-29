@@ -337,8 +337,10 @@ function get_next_post_ID() {
  * @return {obj} post
  * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
  */
-function get_latest_post( $postType = 'post' ) {
-	return get_posts("post_type=${postType}&numberposts=1&orderby=menu_order&order=ASC")[0];
+function get_latest_post( $postType = false ) {
+	$postType = ( ! $postType ) ? get_post_type() : $postType;
+	return get_posts("post_type=${postType}&numberposts=2&orderby=menu_order&order=ASC")[0];
+	// [to sort without using menu_order] => post_type=${postType}&numberposts=1&order=DESC
 }
 
 
@@ -347,8 +349,10 @@ function get_latest_post( $postType = 'post' ) {
  * @return {obj} post
  * @link https://wordpress.stackexchange.com/questions/47957/reverse-next-prev-page-order
  */
-function get_last_post( $postType = 'post' ) {
-	return get_posts("post_type=${postType}&numberposts=1&orderby=menu_order&order=DESC")[0];	
+function get_last_post( $postType = false ) {
+	$postType = ( ! $postType ) ? get_post_type() : $postType;
+	return get_posts("post_type=${postType}&numberposts=2&orderby=menu_order&order=DESC")[0];
+	// [to sort without using menu_order] => post_type=${postType}&numberposts=1&order=ASC
 }
 
 
