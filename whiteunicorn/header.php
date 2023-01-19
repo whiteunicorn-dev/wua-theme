@@ -9,10 +9,8 @@
  * @package WhiteUnicorn
  */
 
-$headerLogo = get_field('theme_header_logo', 'option');
-$headerSettings = get_field('theme_header_settings', 'option');
-$headerType = ( $headerSettings['header_type'] ) ? $headerSettings['header_type'] : 'default';
-//$headerType .= ' hamburger-menu';//NOTE: need to add to ACF theme_header_settings
+$headerSettings = get_field('site_header', 'option');
+$headerLogo = ( $headerSettings and $headerSettings['logo'] ) ? $headerSettings['logo'] : false;
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -25,11 +23,12 @@ $headerType = ( $headerSettings['header_type'] ) ? $headerSettings['header_type'
 </head>
 
 <body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <div id="page" class="site">
 	<!-- For Screen Readers -->
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'whiteunicorn' ); ?></a>
 
-	<header id="site-header" class="<?php echo $headerType; ?>">
+	<header id="site-header">
 		<div class="inner-wrap">
 			<!-- Logo -->
 			<div class="site-branding">

@@ -358,19 +358,97 @@ function get_last_post( $postType = false ) {
 
 /**
  * Get contact object
- * @return {obj} $obj->contact, $obj->location, $obj->hours
+ * @return {obj} phone,email,address,gmaps_link,hours,social_media_links
  */
 function get_contact() {
 	$contact = get_field('site_contact', 'option');
-	$contactInfo = $contact['contact'];
-	$location = $contact['location'];
-	$hours = $contact['hours'];
-	$obj = array(
-				"contact" => $contactInfo,
-				"location" => $location,
-				"hours" => $hours
-			);
-	return $obj;
+	return ( $contact ) ?: 'error getting contact info';
+}
+
+
+/**
+ * Get Video Settings (For use with the ACF Page Builder Elements->Video Container field group)
+ * @param {obj} $container (ACF field group)
+ * @return {obj} $video: 
+ */
+function get_video_settings( $fieldGroup ) {
+	$video_type = $fieldGroup['video_type'];
+	$media = ( $video_type === 'uploaded' ) ? $fieldGroup['video'] : $fieldGroup['embedded_video'];
+	$videoUrl = ( $video_type === 'uploaded' ) ? $media['url'] : getVideoEmbedUrl( $media );
+	$placeholder = $fieldGroup['placeholder'];
+	$aspectRatioClass = ( $fieldGroup['aspect_ratio_class'] ) ?: 'ar--16-9';
+	$aspectRatioCustom = ( $fieldGroup['aspect_ratio_custom'] ) ?: false;
+	$videoCntClass = ( $aspectRatioClass != 'ar--none' ) ? "$aspectRatioClass {$fieldGroup['video_container_class']}" : $fieldGroup['video_container_class'];
+
+	$videoTagSettings = $fieldGroup['video_tag_settings'];
+	$iframeSettings = $fieldGroup['iframe_settings'];
+	$lazyLoad = ( $video_type === "uploaded" ) ? $videoTagSettings['lazyload'] : $iframeSettings['lazyload'];
+	$autoplay = ( $video_type === "uploaded" ) ? $videoTagSettings['autoplay'] : $iframeSettings['autoplay'];
+	$attributes = ( $video_type === "uploaded" ) ? $videoTagSettings['video_attributes'] : $iframeSettings['url_attributes'];
+	$videoClass = "";
+	$tagAttributes = "";
+	$videoDOMString = "";
+	//Uploaded Video Settings
+	if ( $video_type === "uploaded" ) {
+		$videoClass = ( $autoplay === 'js-video-scrollplay' ) ? $autoplay : "";
+		$videoClass .= ( $videoTagSettings['object_fit'] != 'initial' ) ? " {$videoTagSettings['object_fit']}" : "";
+		$videoClass .= ( $lazyLoad ) ? " js-lazy-video" : "";
+		if ( $attributes ) {
+			if ( $autoplay === 'default-autoplay' ) {
+				$attributes .= ( !str_contains( $attributes, "autoplay" ) ) ? " autoplay" : "";
+				$attributes .= ( !str_contains( $attributes, "muted" ) ) ? " muted" : "";
+			}
+			if ( $placeholder ) {
+				$attributes .= ' poster="' . wp_get_attachment_url( $placeholder['ID'] ) . '"';
+			}
+		}
+		$videoDOMString = '<video class="' . $videoClass . '" ' . $attributes . ">";
+		$videoDOMString .= ( !$lazyLoad ) ? '<source src="' : '<source data-src="';
+		$videoDOMString .= $videoUrl . '" type="video/mp4">';
+		$videoDOMString .= '</video>';
+	}
+	//oEmbed Video Settings
+	else {
+		$videoClass = ( $lazyLoad ) ? "lazyload" : "";
+		$tagAttributes = ' frameborder="0"';
+		$tagAttributes .= ( $autoplay ) ? ' allow="autoplay"' : '';
+		$attributes = ( str_starts_with( $attributes, "?" ) ) ? substr( $attributes, 1 ) : $attributes;
+		if ( str_contains( $media, "vimeo" ) ) { // for vimeo videos set to hidden (accounts for token parameter "h" in the embed url)
+			if ( str_contains( $media, "?h=" ) ) {
+				preg_match('/src="([^"]+)"/', $media, $match);
+				$url = $match[1];
+				$urlParse = parse_url( $url );
+				parse_str( $urlParse['query'], $params );
+				if ( $params['h'] ) { $attributes = "h={$params['h']}" . ( !str_starts_with( $attributes, '&' ) ? "&" : "" ) . "$attributes"; }
+			}
+			else if ( preg_match( '#(?:https?://)?(?:www.)?(?:player.)?vimeo.com/(?:[a-z]*/)*(?:[0-9]{6,11})*(/[0-9a-z]*)[?]?.*#', $media, $m ) ) {
+				$videoUrl .= $m[1];
+			}
+		}
+		$videoDOMString = '<iframe class="' . $videoClass . '" ';
+		$videoDOMString .= ( $lazyLoad ) ? 'data-src="' . $videoUrl . '?' . $attributes . '"' : 'src="' . $videoUrl . '?' . $attributes . '"';
+		$videoDOMString .= ' ' . $tagAttributes . '></iframe>';
+	}
+
+	$video = array(
+		"type" => $video_type,
+		"url" => $videoUrl,
+		"placeholder" => ( $placeholder ) ?: false,
+		"aspectRatioClass" => $aspectRatioClass,
+		"aspectRatioCustom" => $aspectRatioCustom,
+		"videoContainerClass" => $videoCntClass,
+		"autoplay" => $autoplay,
+		"lazyload" => $lazyLoad,
+		"videoTagClass" => $videoClass,
+		"tagAttributes" => $tagAttributes,
+		"videoAttributes" => $attributes,
+		"videoDOMString" => esc_html( $videoDOMString ),
+		"embedFullUrl" => $videoUrl . '?' . $attributes,
+		"portfolioPageVideoUrl" => ( $params['h'] ) ? "$videoUrl?h={$params['h']}" : $videoUrl,
+		"vimeoUrlParse" => $urlParse,
+		"vimeoUrlParams" => $params,
+	);
+	return $video;
 }
 
 

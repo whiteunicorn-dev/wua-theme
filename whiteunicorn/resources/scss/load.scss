@@ -2,7 +2,8 @@
 # Vendors (3rd party)
 --------------------------------------------------------------*/
 @import "vendors/magnific-popup.scss";
-@import '~swiper/swiper.min.css';
+//@import '~swiper/swiper.min.css';
+//@import "vendors/slick.scss";
 
 
 /*--------------------------------------------------------------
@@ -10,17 +11,6 @@
 --------------------------------------------------------------*/
 @import "abstracts/variables/*";
 @import "abstracts/mixins/*";
-
-
-/* Fonts
----------------------------------------------- */
-/*@font-face {
-	font-family: 'avenir';
-	src: url('../fonts/AvenirLTStd-Medium.woff2') format('woff2'),
-		url('../fonts/AvenirLTStd-Medium.woff') format('woff');
-	font-style: normal;
-	font-display: swap;
-}*/
 
 
 /*--------------------------------------------------------------
@@ -36,6 +26,12 @@
 
 
 /*--------------------------------------------------------------
+# Utilities (Helpers)
+--------------------------------------------------------------*/
+@import "utilities/*";
+
+
+/*--------------------------------------------------------------
 # Site Components/Sections/Elements
 --------------------------------------------------------------*/
 @import "layouts/*";
@@ -46,10 +42,4 @@
 # Pages/Posts (Custom Styles)
 --------------------------------------------------------------*/
 @import "pages/*";
-
-
-/*--------------------------------------------------------------
-# Utilities
---------------------------------------------------------------*/
-@import "utilities/*";
 

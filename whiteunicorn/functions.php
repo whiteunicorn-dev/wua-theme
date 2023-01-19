@@ -17,27 +17,31 @@ define ( 'WUA_RESOURCES_DIR', WUA_THEME_DIR . 'resources' . DIRECTORY_SEPARATOR 
  */
 function head_hook() {
 $custom_code_hooks = get_field('theme_hooks', 'option');
-?>
-
-	<?php if ($custom_code_hooks['header_hook']) : echo '<!-- Custom Code Header Hook -->' . $custom_code_hooks['header_hook']; endif; ?>
-
-<?php
+	echo ($custom_code_hooks and $custom_code_hooks['header_hook']) ? '<!-- Custom Code Header Hook -->' . $custom_code_hooks['header_hook'] : '';
 }
 add_action('wp_head','head_hook');
 
 
 /**
+ * Body opening Hook
+ */
+function body_open_hook() {
+$custom_code_hooks = get_field('theme_hooks', 'option');
+	echo ($custom_code_hooks and $custom_code_hooks['body_open_hook']) ? '<!-- Custom Code Header Hook -->' . $custom_code_hooks['body_open_hook'] : '';
+}
+add_action('wp_body_open', 'body_open_hook');
+
+
+/**
  * Footer Hook
  */
-function footer_script() {
-$general_theme_settings = get_field('theme_general_settings', 'option');
-$google_analytics = $general_theme_settings['google_analytics'];
+function footer_hook() {
 $custom_code_hooks = get_field('theme_hooks', 'option');
 $page_custom_styles = get_field('page_css');//Custom CSS on each page
 $page_custom_js = get_field('page_javascript');//Custom JS on each page
 ?>
 	
-	<?php if ($custom_code_hooks['footer_hook']) : echo '<!-- Custom Code Footer Hook -->' . $custom_code_hooks['footer_hook']; endif; ?>
+	<?php if ($custom_code_hooks and $custom_code_hooks['footer_hook']) : echo '<!-- Custom Code Footer Hook -->' . $custom_code_hooks['footer_hook']; endif; ?>
 
 	<?php if ($page_custom_styles) : ?>
 		<!-- Page Styles -->
@@ -49,11 +53,9 @@ $page_custom_js = get_field('page_javascript');//Custom JS on each page
 		<script type="text/javascript"><?php echo $page_custom_js; ?></script>
 	<?php endif; ?>
 
-	<?php if ($google_analytics) : echo '<!-- Google Analytics -->' . $google_analytics; endif; ?>
-
 <?php	
 }
-add_action('wp_footer','footer_script');
+add_action('wp_footer','footer_hook');
 
 
 /**
@@ -155,6 +157,9 @@ if ( ! function_exists( 'wua_theme_setup' ) ) {
 			'menu-primary' => esc_html__( 'Main Menu', 'whiteunicorn' ),
 		) );
 
+		# Remove extra SVG code from WP
+		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+
 
 		/*
 		 * Make theme available for translation.
@@ -163,6 +168,8 @@ if ( ! function_exists( 'wua_theme_setup' ) ) {
 		 * to change 'whiteunicorn' to the name of your theme in all the template files.
 		 */
 		load_theme_textdomain( 'whiteunicorn', get_template_directory() . '/languages' );
+
+		
 		
 		
 		# Manually select Post Formats to be supported - http://codex.wordpress.org/Post_Formats

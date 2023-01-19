@@ -5,26 +5,17 @@
  * @package WhiteUnicorn
  * @param $section
  * @param $section_count
+ * @uses video_item object (ACF)
  */
 
 $video_container = $section['video_container'];
-$settings = $section['section_settings'];
-$section_id = ( $settings['id_attribute'] ) ?: 'sec-' . $section_count;
-$classnames = ( $settings['classnames'] ) ?: '';
-$mw_settings = ( $settings['max_width'] ) ?: '';
-$set_max_width = $mw_settings['set_max_width'];
+$settings = ( isset( $section['project_section_settings'] ) ) ? $section['project_section_settings'] : $section['section_settings'];
+$classnames = ( $settings['classnames'] ) ? $settings['classnames'] . " sec-$section_count" : "sec-$section_count";
+$maxW = $settings['section_max_width'];
 ?>
 
-<section id="<?php echo $section_id; ?>" class="video_row-sec sec-<?php echo $section_count; ?> <?php echo $classnames; ?>">
-
-	<?php if ( $set_max_width == 1 ) : ?>
-	<div class="inner-wrap" style="<?php echo render_max_w_style( $mw_settings ); ?>">
-	<?php endif; ?>
-
-	<?php echo render_container( $video_container, 'video' ); ?>
-
-	<?php if ( $set_max_width == 1 ) : ?>
+<section class="video-row sec-<?php echo $section_count; ?> <?php echo $classnames; ?>">
+	<div class="inner-wrap<?php if ( $maxW ) { echo ' max-width'; } ?>">
+		<?php echo render_container( $video_container, 'video' ); ?>
 	</div>
-	<?php endif; ?>
-
 </section>

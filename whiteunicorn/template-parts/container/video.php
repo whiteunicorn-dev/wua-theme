@@ -6,42 +6,24 @@
  * @param $container
  */
 
-$video_type = $container['video_type'];
-$video = ( $video_type === 'uploaded' ) ? $container['video'] : $container['embedded_video'];
-$placeholder = $container['placeholder'];
-$content_container = $container['content_container'];
-$content_position = $container['content_position'];
-$class_names = ( $container['classnames'] ) ?: '';
+$video = get_video_settings( $container );
+if ( !$video['url'] ) { return; }
 ?>
 
-<?php if ( $video ) : ?>
-<div class="video-cnt <?php echo $class_names; ?>">
+<div class="video-group-cnt <?php echo $video['videoGroupContainerClass']; ?>">
 
-	<?php if ( $content_position == 'above' and $content_container ) : ?>
-		<?php echo render_container( $content_container, 'content' ); ?>
-	<?php endif; ?>
-
-	<div class="video-wrap">
-		<div class="row video <?php echo $video_type; ?>" data-video-type="<?php echo $video_type; ?>">
-			<?php if ( $video_type == 'embedded' ) : ?>
-			<div class="iframe-cnt video-item">
-				<?php echo $video; ?>
-			</div>
-			<?php else : ?>
-			<?php if ( $placeholder ) : ?>
-			<?php echo wp_get_attachment_image( $placeholder['ID'], 'custom-medium', '', array( "class" => "vid-placeholder bg-cover" ) ); ?>
-			<button class="play-btn"><span class="arrow"></span></button>
-			<?php endif; ?>
-			<video playsinline preload muted loop controls>
-				<source src="<?php echo $video['url']; ?>" type="video/mp4">
-			</video>
-			<?php endif; ?>
+	<div class="row video <?php echo $video['type']; ?>" data-video-type="<?php echo $video['type']; ?>">
+		<?php if ( $video['type'] == 'embedded' ) : ?>
+		<div class="oembed-cnt <?php echo $video['videoContainerClass']; ?><?php if ( str_contains( $video['videoAttributes'], "controls=1" ) ) { echo ' has-controls'; } ?>">
+			<?php /*<iframe class="lazyload" data-src="<?php echo $videoUrl; ?>?&autoplay=1&loop=1&title=0&controls=0&muted=1" frameborder="0" allow="autoplay;"></iframe>*/ ?>
+			<?php echo html_entity_decode( $video['videoDOMString'] ); ?>
 		</div>
+		<?php else : ?>
+		<div class="video-cnt <?php echo $video['videoContainerClass']; ?>">
+			<?php /*<video playsinline preload muted loop controls><source src="<?php echo $video['url']; ?>" type="video/mp4"></video>*/ ?>
+			<?php echo html_entity_decode( $video['videoDOMString'] ); ?>
+		</div>
+		<?php endif; ?>
 	</div>
 
-	<?php if ( $content_position == 'below' and $content_container ) : ?>
-		<?php echo render_container( $content_container, 'content' ); ?>
-	<?php endif; ?>
-
 </div>
-<?php endif; ?>

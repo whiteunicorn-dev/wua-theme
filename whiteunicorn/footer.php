@@ -9,10 +9,8 @@
  * @package WhiteUnicorn
  */
 
-$footer = get_field('theme_footer', 'option');
-$touUrl = ( $footer['terms_of_use'] ) ? $footer['terms_of_use'] : "#";
-$ppUrl = ( $footer['privacy_policy'] ) ? $footer['privacy_policy'] : "#";
-$copyright = get_field('theme_copyright', 'option')['text'];
+$footer = get_field('site_footer', 'option');
+$copyright = ( $footer and $footer['copyright'] ) ? $footer['copyright'] : '';
 $contact = get_contact();
 ?>
 
@@ -25,18 +23,8 @@ $contact = get_contact();
 					<p class="copyright"><?php echo do_shortcode( $copyright ); ?></p>
 				</div>
 			</div>
-			<div class="col terms-use-cnt d-flx flx-c flx-c--t ta-c--t">
-				<div class="inner-wrap">
-					<a href="<?php echo $touUrl; ?>" class="txt-link">Terms of Use</a>
-				</div>
-			</div>
-			<div class="col privacy-pol-cnt d-flx jc-fe flx-c--t ta-c--t">
-				<div class="inner-wrap">
-					<a href="<?php echo $ppUrl; ?>" class="txt-link">Privacy Policy</a>
-				</div>
-			</div>
 		</div>
-	</footer><!-- #footer -->
+	</footer>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

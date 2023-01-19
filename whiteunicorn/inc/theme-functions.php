@@ -9,13 +9,8 @@
  * Add classes to body tag
  */
 function customize_body_classes( $classes ) {
-	$headerSettings = get_field('theme_header_settings', 'option');
-	$headerType = $headerSettings['header_type'][0];
-	$className = '';
-	if ( $headerType != 'standard' ) {
-		$className = 'header-' . $headerType;
-	}
-	
+	global $post;
+	$className = $post->post_name;
 	return array_merge( $classes, array( $className ) );
 }
 add_filter( 'body_class', 'customize_body_classes' );

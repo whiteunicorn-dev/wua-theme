@@ -5,28 +5,6 @@
  * @package WhiteUnicorn
  */
 
-/**
- * Social Media Links
- * @uses [social-media-links]
- */
-function social_media_links() {
-$theme_general_settings = get_field('theme_general_settings', 'option');
-$social_media_links = $theme_general_settings['social_media_links'];
-ob_start();
-
-if( $social_media_links ):
-	foreach ( $social_media_links as $link ) : ?>
-		<a href="<?php echo $link['link']; ?>" class="social-media" target="_blank">
-			<img src="<?php echo $link['icon']['url']; ?>" class="social-icon" />
-		</a>
-	<?php
-	endforeach;
-endif;
-
-return ob_get_clean();
-}
-add_shortcode('social-media-links', 'social_media_links');
-
 
 /**
  * Current Year

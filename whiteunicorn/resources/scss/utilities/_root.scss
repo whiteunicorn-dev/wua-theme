@@ -1,4 +1,4 @@
 :root {
-    --gray: $gray;
-    --ltgray: $ltgray;
+    --gray: #{$gray};
+    --ltgray: #{$ltgray};
 }

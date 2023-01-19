@@ -1,6 +1,13 @@
 //-- MISC --//
 .screenreader-content { @include screenreader-content(); }
 .visibly-hidden { @include offscreen-content(); }
+.td-n { text-decoration: none; }
+.td-u { text-decoration: underline; }
+.td-u-hover:hover { text-decoration: underline; }
+.lst-n { list-style-type: none; }
+.lst-d { list-style-type: disc; }
+.pe-n { pointer-events: none; }
+.c-p { cursor: pointer; }
 
 .br-50 {border-radius:50%;}.br-5 {border-radius:5px;}.zi-0 {z-index:0;}.zi-1 {z-index:1;}.zi-2 {z-index:2;}
 

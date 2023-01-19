@@ -17,9 +17,7 @@ import lazyIframeOEmbed from "./modules/lazy-oembed";
 import vimeoModals from "./modules/vimeo-modals";
 import scrollToLinks from "./modules/scroll-to-links";
 import scrollTriggerAnimation from "./modules/scroll-trigger-items";
-import initSwiperSliders from './modules/swiper-sliders';
 import homePage from './modules/page--home';
-//import wuaInit from './modules/wua';
 
 /*
  * Init
@@ -47,5 +45,4 @@ jQuery(document).ready(function($) {
     vimeoModals();
     scrollToLinks();
     scrollTriggerAnimation();
-    initSwiperSliders();
 });

@@ -14,9 +14,7 @@
     "dependencies": {
         "gsap": "file:./resources/assets/gsap-bonus.tgz",
         "gulp": "^4.0.2",
-        "magnific-popup": "^1.1.0",
-        "select2": "^4.1.0-rc.0",
-        "swiper": "6.8.4"
+        "magnific-popup": "^1.1.0"
     },
     "devDependencies": {
         "@babel/core": "^7.1.0",

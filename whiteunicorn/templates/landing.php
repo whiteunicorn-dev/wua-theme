@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Terms/Privacy Page
+ * Template Name: Landing Page
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -11,9 +11,10 @@ get_header();
 ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main terms-privacy-pg">
-
-
+		<main id="main" class="site-main p-r">
+			
+			
+			
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

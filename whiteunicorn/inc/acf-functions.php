@@ -44,12 +44,12 @@ if( function_exists('acf_add_options_page') ) {
  */
 function acf_gmap_update() {
 	$theme_general_settings = get_field('theme_general_settings', 'option');
-    $g_api_key = $theme_general_settings['google_api_key'];
+    $g_api_key = ($theme_general_settings and $theme_general_settings['google_api_key']) ? $theme_general_settings['google_api_key'] : false;
 	if ($g_api_key) {
     	acf_update_setting('google_api_key', $g_api_key);
 	}
 }
-add_action('acf/init', 'acf_gmap_update');
+//add_action('acf/init', 'acf_gmap_update');
 
 
 /**
@@ -87,6 +87,8 @@ add_action('acf/input/admin_footer', 'acf_admin_footer');
  * ACF Typography Field (Add custom fonts to font-family dropdown)
  * NOTE: Must add filter to ACF Typography Field Plugin (acf-Typography-v5.php -> line:429)
  * 		$options = apply_filters('typography_field_select_options', $options, $field, $f );
+ * 
+ *  REMOVED [1.5.23]
  */
 function customize_typography_field( $options, $field, $f ) {
 	$theme_typography = get_field('theme_typography', 'option');
@@ -102,4 +104,4 @@ function customize_typography_field( $options, $field, $f ) {
 	
 	return $options;
 }
-add_filter('typography_field_select_options', 'customize_typography_field', 10, 3);
+//add_filter('typography_field_select_options', 'customize_typography_field', 10, 3);
