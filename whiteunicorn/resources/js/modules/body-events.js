@@ -19,9 +19,9 @@ export default function bodyEvents() {
         //If scrolling up or down
         (lastScrollY > global.scrollY) ? $body.removeClass("scrolling-down").addClass("scrolling-up") : $body.addClass("scrolling-down").removeClass("scrolling-up");
         //If at top of page
-        (global.scrollY <= atTopVal) ? $body.removeClass("scrolling-down").removeClass("scrolling-up").addClass("at-top") : $body.removeClass("at-top");
+        (global.scrollY <= atTopVal) ? ($body.removeClass("scrolling-down").removeClass("scrolling-up").addClass("at-top"), events.emit("body_at_top")) : $body.removeClass("at-top");
         //If at bottom of page
-        ((global.scrollY + global.winHeight + 1) >= global.docHeight) ? $body.addClass("at-bottom") : $body.removeClass("at-bottom");//log("scrollTop + windowHeight:", (scrollTop + global.winHeight + 1))
+        ((global.scrollY + global.winHeight + 1) >= global.docHeight) ? ($body.addClass("at-bottom"), events.emit("body_at_bottom")) : $body.removeClass("at-bottom");//log("scrollTop + windowHeight:", (scrollTop + global.winHeight + 1))
         //Update lastScrollY var
         lastScrollY = global.scrollY;
     }

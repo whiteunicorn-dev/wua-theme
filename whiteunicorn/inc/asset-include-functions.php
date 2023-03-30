@@ -68,10 +68,10 @@ function include_magnific_popup() {
  */
 function include_lightbox() {
 	add_action('wp_footer', function() {
-		require_once( WUA_INC_DIR . 'assets/photoswipe-lightbox.php' );
+		require_once( WUA_INC_DIR . 'assets/photoswipe-lightbox_v4.php' );
 	}, 0);
 	add_action('wp_footer', function() {
-		require_once( WUA_THEME_DIR . 'template-parts/photoswipe.php' );
+		require_once( WUA_THEME_DIR . 'template-parts/photoswipe_v4.php' );
 	}, 0);
 }
 

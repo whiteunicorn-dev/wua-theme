@@ -84,3 +84,13 @@ function crb_hide_editor() {
 	}
 }
 //add_action( 'admin_init', 'crb_hide_editor' );
+
+
+/**
+ * Disable Gutenberg Duotone filters
+ */
+function disable_duotone_filters() {
+	remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+	remove_action( 'in_admin_header', 'wp_global_styles_render_svg_filters' );
+}
+add_action('after_setup_theme', 'disable_duotone_filters', 10, 0);
