@@ -69,7 +69,7 @@ if ( ! function_exists( 'wua_theme_setup' ) ) {
 			echo '<style type="text/css" id="theme-styles">';
 			require_once( WUA_THEME_DIR . 'style.css' );
 			echo '</style>';
-		}, 7);
+		}, 9);
 
 
 		# Theme assets (footer)

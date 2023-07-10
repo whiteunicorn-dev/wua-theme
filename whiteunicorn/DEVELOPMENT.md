@@ -1,5 +1,5 @@
 ## Dependencies
-1. Latest version of [NodeJS](http://nodejs.org/) (min v6.0.0)
+1. Latest version of [NodeJS](http://nodejs.org/) (min v6.0.0) [nvm use 14.10.0]
 2. Latest version of one of the following package managers
 
 - [NPM](https://www.npmjs.com/) (min v5.3.0)

@@ -1,0 +1,26 @@
+/*!
+Theme Name: WhiteUnicorn
+Theme URI: http://underscores.me/
+Author: White Unicorn Agency
+Author URI: whiteunicornagency.com
+Description: Custom Theme
+Version: 2.0.1
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: wua
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+WhiteUnicorn is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+DEVELOPMENT.md file contains instructions how to get the compilation
+process up & running.
+
+If you need to make a quick fix, feel free to add CSS
+below this comment -- it's loaded after the compiled bundle.
+*/
+
+p {  }

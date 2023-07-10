@@ -1,0 +1,7 @@
+body.page-template-landing {
+    #site-header,
+    #footer { display: none; }
+    #content {
+        min-height: 100vh;
+    }
+}

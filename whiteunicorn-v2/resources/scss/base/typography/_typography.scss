@@ -1,0 +1,11 @@
+@import "fonts";
+body {
+    font-family: $font-pri;
+    color: $color-pri;
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+@import "headings";
+@import "copy";

@@ -1,0 +1,36 @@
+{
+    "name": "wp-theme",
+    "version": "4.0.0",
+    "engines": {
+        "node": ">=16"
+    },
+    "scripts": {
+        "dev": "vite",
+        "prod": "vite build",
+        "start": "npm run dev",
+        "build": "npm run prod",
+        "admin": "vite --config vite.config.admin.js",
+        "admin:start": "npm run admin",
+        "admin:build": "vite build --config vite.config.admin.js"
+    },
+    "dependencies": {
+        "gsap": "file:./resources/assets/gsap-bonus.tgz",
+        "gulp": "^4.0.2",
+        "magnific-popup": "^1.1.0"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.13",
+        "rollup-plugin-external-globals": "^0.7.1",
+        "sass": "^1.57.1",
+        "stylelint": "^14.16.1",
+        "stylelint-config-standard-scss": "^6.1.0",
+        "tslib": "^2.5.0",
+        "vite": "^3.2.5",
+        "vite-plugin-external": "^1.2.7",
+        "vite-plugin-filter-replace": "^0.1.10",
+        "vite-plugin-live-reload": "^3.0.1",
+        "vite-plugin-sass-glob-import": "^1.4.0",
+        "vite-plugin-stylelint": "^3.3.3",
+        "vite-plugin-watch-and-run": "^1.1.1"
+    }
+}
