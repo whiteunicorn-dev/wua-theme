@@ -23,11 +23,10 @@ function render_template_part( $path ) {
 /**
  * Render ACF Flexible Content Sections
  * @param obj $section
- * @param int $section_count
  */
-function render_section( $section, $section_count ) {
-	$layout = $section['acf_fc_layout'];
-	$tempate_part = 'template-parts/section/' . $layout . '.php';
+function render_section( $section ) {
+	$layout = str_replace( '_', '-', $section['acf_fc_layout'] );
+	$tempate_part = "template-parts/section/$layout.php";
 	
 	if ( locate_template( $tempate_part ) != '' ) {
 		include( locate_template( $tempate_part, false, false ) );

@@ -7,30 +7,20 @@
  * @package WhiteUnicorn
  */
 
-$hero = get_the_post_thumbnail( get_the_ID(), 'full', array( "class" => "cover" ) );
 $page_content = get_field('page_content');
-$contact_sec = get_field('contact_section');
-$shortlinks_navigation = get_field('single_page_navigation');
-
 get_header();
 ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+		<main id="main" class="site-main pg-<?php echo sanitize_title( get_the_title() ); ?>">
 			
-			<?php if ( $hero ) : ?>
-			<div id="hero-cnt">
-				<?php echo $hero; ?>
-			</div>
-			<?php endif; ?>
-
-			<?php if ( $page_content ) : $section_count = 0; ?>
-			<?php foreach ( $page_content as $section ) : $section_count++; ?>
-
-				<?php echo render_section( $section, $section_count ); ?>
-
-			<?php endforeach; ?>
-			<?php endif; ?>
+			<?php
+			if ( $page_content ) {
+				foreach ( $page_content as $section ) {
+					echo render_section( $section );
+				}
+			}
+			?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
