@@ -92,6 +92,9 @@ export default {
 		},
 		devSourcemap: true,
 	},
+	define: {
+		global: "globalThis",
+	},
 }
 
 // determines the base website URL for the dev command
