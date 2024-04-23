@@ -84,6 +84,24 @@ add_action('acf/input/admin_footer', 'acf_admin_footer');
 
 
 /**
+ * Load Gravity Forms list on ACF select fields
+ * @uses name=ACF_FIELD_NAME
+ * @example 'acf/load_field/name=gform' this will target all ACF fields with field name "gform".
+ */
+function acf_load_forms( $field ) {
+    $gforms = GFAPI::get_forms();
+    $field['choices'] = array();
+	foreach( $gforms as $form ) {
+		$formID = $form['id'];
+		$field['choices'][$formID] = $form['title'];
+	}
+
+    return $field;
+}
+//add_filter('acf/load_field/name=gform', 'acf_load_forms');
+
+
+/**
  * ACF Typography Field (Add custom fonts to font-family dropdown)
  * NOTE: Must add filter to ACF Typography Field Plugin (acf-Typography-v5.php -> line:429)
  * 		$options = apply_filters('typography_field_select_options', $options, $field, $f );

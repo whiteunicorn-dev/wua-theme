@@ -40,6 +40,17 @@ $(document).on('gform_page_loaded', function(event, form_id, current_page) {
 });
 
 
+
+/**
+ * Fires on successful submissions with AJAX
+ * 
+ * https://docs.gravityforms.com/gform_confirmation_loaded/
+ */
+$(document).on('gform_confirmation_loaded', function(event, formID) {
+    // code to be triggered when the confirmation page is loaded
+});
+
+
 /**
  * Setup form inputs to have focus/blur events. You can use this to show/move/hide the labels when user interacts with fields
  */
