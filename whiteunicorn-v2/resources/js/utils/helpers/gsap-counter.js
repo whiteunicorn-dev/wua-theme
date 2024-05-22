@@ -37,3 +37,50 @@ gsap.registerEffect({
         return tl;
     }
 });
+
+/* Example
+// stat item HTML:
+<div class="stat-item">
+    <div class="stat">
+        <span class="js-stat" data-statnumber="1400">0</span>+
+    </div>
+</div>
+// PHP for above code
+<?php
+$stat['stat'] = "1440+"; //example - also works for "$100.00" || "83%"
+if ( $stat['stat'] ) :
+$statNumber = get_string_between( $stat['stat'], "[", "]" );
+$startNumber = ( str_contains( $stat['stat'], "." ) ) ? "0.0" : "0";
+echo str_replace( "[", "<span class='js-stat' data-statnumber='$statNumber'>", str_replace( "]","</span>", str_replace( $statNumber, $startNumber, $stat['stat'] ) ) );
+endif;
+?>
+
+function statCounter() {
+    const $stats = $(".js-stat");
+    if (!$stats.length) return;
+    registerEffect(); // Run function above
+    setTimeout(() => { $stats.each(addCounter); }, 1000);
+
+    function addCounter(i, stat) {
+        const $stat = $(stat);
+        const $parent = $stat.closest(".stat-item");
+        const statNumber = parseFloat($stat.attr("data-statnumber"));
+
+        ScrollTrigger.create({
+            trigger: $parent.get(0),
+            start: "top center",
+            once: true,
+            //markers: true,
+            onEnter: () => {
+                gsap.effects.counter(stat, {
+                    end: statNumber,
+                    increment: 0.1,
+                    parseFloat: ($stat.attr("data-statnumber").includes(".")),
+                    toFixed: 1,
+                    //duration: 2,
+                }, 2);
+            },
+        });
+    }
+}
+*/

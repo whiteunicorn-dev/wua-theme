@@ -251,6 +251,24 @@ function trim_string_length( $string = '', $length = 100, $ellipse = ' ...' ) {
 
 
 /**
+ * Get Substring in between a start and end point
+ * @param {string} string to parse
+ * @param {string} starting point
+ * @param {string} end point
+ * @return {string} substring
+ */
+function get_string_between( $string, $start, $end ) {
+    $string = ' ' . $string;
+    $ini = strpos( $string, $start );
+    if ( $ini == 0 ) return '';
+    $ini += strlen( $start);
+    $len = strpos( $string, $end, $ini ) - $ini;
+
+    return substr( $string, $ini, $len );
+}
+
+
+/**
 * Load an inline SVG with wp attachment
 *
 * @param {int} $attachment_id The filename of the SVG you want to load.
