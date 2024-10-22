@@ -62,7 +62,7 @@ function subscribe() {
                 "animation": "fadeIn.fromBottom",
                 "distance": "30%",
                 "duration": ".5",
-                "splittext": "{target: '.section__title', type: 'lines', lineWrap: true}",
+                "splittext": "{target: '.section__title', type: 'lines', wrapLines: true}",
                 "stagger": "0.15",
                 "target": ".line"
             }`

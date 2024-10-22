@@ -2,6 +2,6 @@
     opacity: 0;
 }
 [data-scrolltrigger] {
-	//.line-wrap, .word-wrap { overflow: hidden; vertical-align: top; }
-    //.word-wrap, span, strong, em { display: inline-block; } // prevents splitText from putting spans in their own line
+	.line-wrap, .word-wrap { overflow: hidden; vertical-align: top; }
+    .word-wrap, span, strong, em { display: inline-block; } // prevents splitText from putting spans in their own line
 }
